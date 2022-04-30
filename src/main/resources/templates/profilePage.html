@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/19bd0d3a62.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="../static/icon.jpg">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+
+        body {
+            background-image: url("https://coolbackgrounds.io/images/backgrounds/index/ranger-4df6c1b6.png");
+            background-size: 180% 180%;
+            font-family: "Poppins", sans-serif;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body xmlns:th="http://www.thymeleaf.org">
+<header>
+    <nav style="background-color: black" class="navbar navbar-expand-lg navbar-dark mask-custom shadow-0">
+        <div class="container">
+            <a class="navbar-brand" href="/"><span style="color: #5e9693;">Donations</span><span
+                    style="color: red;">2</span><span style="color: lightblue;">Go</span></a>
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto ms-auto">
+                    <li class="nav-item">
+                        <a th:if="${isAuthenticated==true}" class="nav-link" href="/restaurants/listings">Public food
+                            listings</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav d-flex flex-row">
+                    <li class="nav-item me-3 me-lg-0">
+                        <a class="nav-link" href="/auth">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item me-3 me-lg-0">
+                        <a class="nav-link" href="/auth/profile">
+                            <i class="fa fa-user"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<section>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img th:src="${currentUser.getProfilePictureLink()}" alt="avatar"
+                             class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3" th:text="${currentUser.getName()+ ' ' + currentUser.getSurname()}"></h5>
+                        <p class="text-muted mb-1" th:text="${currentUser.getJobTitle()}"></p>
+                        <p class="text-muted mb-4" th:text="${currentUser.getPrivateAddress()}"></p>
+                        <h6 th:if="${isRestaurant==true}">Your account is registered as restaurant.</h6>
+                        <h6 th:if="${isFoodbank==true}">Your account is registered as foodbank.</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Full Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0"
+                                   th:text="${currentUser.getName()+ ' ' + currentUser.getSurname()}"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0" th:text="${currentUser?.email}"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Phone</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0" th:text="${currentUser?.phone}"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Address</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0" th:text="${currentUser?.privateAddress}"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">City</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0" th:text="${currentUser?.getCity()}"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Country</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0" th:text="${currentUser?.getCountry()}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div th:if="${isRestaurant==true && restaurantAdded==true}" class="col-md-4">
+                <div>
+                    <h6>Your restaurant have been succesfully linked with
+                        your account. You can now go and add public listings,</h6>
+                    <a href="/restaurants/listings/addPage"
+                       class="btn btn-danger">
+                        <i class="fa fa-bird">Add new public listing</i>
+                    </a>
+                </div>
+            </div>
+
+            <div th:if="${isRestaurant==true && restaurantAdded==false}" class="col-md-4">
+                <div>
+                    <h6>Pleaso link your restaurant with your account to countinue using our services.</h6>
+                    <a href="/restaurants/addpage"
+                       class="btn btn-danger">
+                        <i class="fa fa-bird">Add new restaurant</i>
+                    </a>
+                </div>
+            </div>
+
+            <div th:if="${isFoodbank==true && foodbankAdded==false}" class="col-md-4">
+                <div>
+                    <h6>Pleaso link your foodbank with your account to countinue using our services.</h6>
+                    <a href="/foodbanks/addpage"
+                       class="btn btn-danger">
+                        <i class="fa fa-bird">Add new foodbank</i>
+                    </a>
+                </div>
+            </div>
+
+            <div th:if="${isFoodbank==true && foodbankAdded==true}" class="col-md-3">
+                <div>
+                    <h6>You have succesfully linked your foodbank with your account.
+                        You can now go and check out all the public listings.</h6>
+                    <a href="/restaurants/listings"
+                       class="btn btn-danger">
+                        <i class="fa fa-bird">View listings</i>
+                    </a>
+                </div>
+            </div>
+
+            <div th:if="${isFoodbank==true && foodbankAdded==true && myListings==true}" class="col-md-9">
+                <div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Food name</th>
+                            <th scope="col">Food type</th>
+                            <th scope="col">Food quantity</th>
+                            <th scope="col">Restaurant name</th>
+                            <th scope="col">Restaurant address</th>
+                            <th scope="col">Restaurant email</th>
+                            <th scope="col">Remove order</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="food:${foods}">
+                            <td th:text="${food.getName()}"></td>
+                            <td th:text="${food.getTypeOfFood()}"></td>
+                            <td th:text="${food.getQuantity()}"></td>
+                            <td th:text="${food.restaurant.getName()}"></td>
+                            <td th:text="${food.restaurant.getAddress()+','+food.restaurant.getCity()+','+food.restaurant.getCountry()}"></td>
+                            <td th:text="${food.restaurant.getEmail()}"></td>
+                            <td>
+                                <form th:action="@{'/restaurants/order/remove/{id}' (id=${food.getId()})}"
+                                      th:method="POST">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger">
+                                        Cancel order &nbsp;<i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer id="sticky-footer" class="flex-shrink-0 py-4 text-white-50" style="background-color: black">
+    <div class="container text-center">
+        <small>Copyright &copy; Donations2Go</small>
+    </div>
+</footer>
+</body>
+</html>
